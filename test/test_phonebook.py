@@ -192,4 +192,4 @@ class TestPhonebook:
     ])
     def test_valida_caracteres_especiais(self, caractere, expected_result):
         phonebook = Phonebook()
-        assert phonebook.valida_caracteres_especiais(caractere) == True
+        assert phonebook.valida_caracteres_especiais(caractere)
