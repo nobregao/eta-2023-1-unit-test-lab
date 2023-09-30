@@ -227,3 +227,28 @@ class TestPhonebook:
     def test_valida_caracteres_especiais(self, caractere, expected_result):
         phonebook = Phonebook()
         assert phonebook.valida_caracteres_especiais(caractere)
+
+    def test_change_numbers(self):
+        phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "777777")
+        phonebook.add("raquel", "999999")
+
+        expected_result = phonebook.change_numbers("raquel", "44444444")
+
+        assert expected_result == "Numero alterado"
+        assert phonebook.search("raquel") == [{"raquel": "44444444"}]
+
+    def test_change_numbers_name_invalido(self):
+        phonebook = Phonebook()
+
+        expected_result = phonebook.change_numbers("", "44444444")
+
+        assert expected_result == "Nome invalido"
+
+    def test_change_numbers_name_nao_existe(self):
+        phonebook = Phonebook()
+
+        expected_result = phonebook.change_numbers("raquel", "44444444")
+
+        assert expected_result == "Nome nao existe"

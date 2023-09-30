@@ -129,3 +129,24 @@ class Phonebook:
 
         self.entries.pop(name)
         return 'Numero deletado'
+
+    # MELHORIA: adicionamos método change_number para alterar o numero de um nome
+    def change_numbers(self, name, number):
+        CAMPO_VAZIO = 0
+        """
+        Change number of person
+        :param name: String with name of person
+        :param number: String with number for change
+        :return: return 'Nome invalido' or 'Nome nao existe' or 'Numero invalido' or 'Numero alterado'
+        """
+        if len(name) == CAMPO_VAZIO:
+            return 'Nome invalido'
+
+        if name not in self.entries.keys():
+            return 'Nome nao existe'
+
+        if len(number) == CAMPO_VAZIO:
+            return 'Numero invalido'
+
+        self.entries[name] = number
+        return "Numero alterado"
