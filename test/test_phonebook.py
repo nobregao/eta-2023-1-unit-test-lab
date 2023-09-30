@@ -1,3 +1,5 @@
+import pytest
+
 from src.phonebook import Phonebook
 
 class TestPhonebook:
@@ -35,13 +37,16 @@ class TestPhonebook:
 
         assert phonebook.lookup("") == {"sarita": "999999"}
 
-    def test_lookup_nome_caractere_especial(self):
+    @pytest.mark.parametrize("name, expected_result", [
+        ("renatão#", "Nome invalido"),
+        ("renatão@", "Nome invalido"),
+        ("!renatão", "Nome invalido"),
+        ("rena$tão", "Nome invalido"),
+        ("renatão%", "Nome invalido")
+    ])
+    def test_lookup_nome_caractere_especial(self, name, expected_result):
         phonebook = Phonebook()
-        assert phonebook.lookup("renatão#") == "Nome invalido"
-        assert phonebook.lookup("renatão@") == "Nome invalido"
-        assert phonebook.lookup("!renatão") == "Nome invalido"
-        assert phonebook.lookup("renatão%") == "Nome invalido"
-        assert phonebook.lookup("rena$tão") == "Nome invalido"
+        assert phonebook.lookup(name) == expected_result
 
     def test_get_names(self):
         phonebook = Phonebook()
