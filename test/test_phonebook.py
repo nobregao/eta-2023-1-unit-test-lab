@@ -252,3 +252,23 @@ class TestPhonebook:
         expected_result = phonebook.change_numbers("raquel", "44444444")
 
         assert expected_result == "Nome nao existe"
+
+    def test_get_name_by_number(self):
+        phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "888888")
+        phonebook.add("raquel", "999999")
+
+        expected_result = phonebook.get_name_by_number("888888")
+
+        assert expected_result == ["renatão", "sarita"]
+
+    def test_get_name_by_number_vazio(self):
+        phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "888888")
+        phonebook.add("raquel", "999999")
+
+        expected_result = phonebook.get_name_by_number("")
+
+        assert expected_result == "Numero invalido"

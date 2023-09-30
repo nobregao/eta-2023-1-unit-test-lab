@@ -150,3 +150,21 @@ class Phonebook:
 
         self.entries[name] = number
         return "Numero alterado"
+
+    # MELHORIA: adicionamos método get_name_by_number para buscar por numero
+    def get_name_by_number(self, search_number):
+        CAMPO_VAZIO = 0
+        """
+        Get name by number
+        :param search_number: String with number for search
+        :return: return list with results of search or 'Numero invalido'
+        """
+        if len(search_number) == CAMPO_VAZIO:
+            return 'Numero invalido'
+
+        result = []
+
+        for name, number in self.entries.items():
+            if search_number == number:
+                result.append(name)
+        return sorted(result)
