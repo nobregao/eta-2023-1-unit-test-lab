@@ -10,6 +10,11 @@ class TestPhonebook:
         assert phonebook.add("renatão", "777777") == "Numero adicionado"
         assert phonebook.add("raquel", "999999") == "Numero adicionado"
 
+    def test_add_nome_duplicado(self):
+        phonebook = Phonebook()
+        assert phonebook.add("sarita", "888888") == "Numero adicionado"
+        assert phonebook.add("sarita", "888888") == "Nome ja adicionado"
+
     def test_add_numero_vazio(self):
         phonebook = Phonebook()
         assert phonebook.add("sarita", "") == "Numero invalido"
@@ -54,6 +59,11 @@ class TestPhonebook:
         phonebook.add("sarita", "999999")
 
         assert phonebook.lookup("sarita") == {"sarita": "999999"}
+
+    def test_lookup_nome_nao_existe(self):
+        phonebook = Phonebook()
+
+        assert phonebook.lookup("sarita") == "Nome nao existe"
 
     def test_lookup_nome_vazio(self):
         phonebook = Phonebook()
@@ -129,6 +139,25 @@ class TestPhonebook:
 
         assert phonebook.search("sarita") == [{"sarita": "888888"}]
 
+    def test_search_nome_nao_existe(self):
+        phonebook = Phonebook()
+
+        assert phonebook.search("sarita") == []
+
+    def test_search_substrings_nome(self):
+        phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "777777")
+        phonebook.add("raquel", "999999")
+
+        expected_result = \
+            [{'POLICIA': '190'},
+             {'sarita': '888888'},
+             {'renatão': '777777'},
+             {'raquel': '999999'}]
+
+        assert phonebook.search("a") == expected_result
+
     def test_get_phonebook_sorted(self):
         phonebook = Phonebook()
         phonebook.add("sarita", "888888")
@@ -157,6 +186,11 @@ class TestPhonebook:
 
         assert phonebook.delete("renatão") == "Numero deletado"
         assert "renatão" not in phonebook.entries
+
+    def test_delete_nome_nao_existe(self):
+        phonebook = Phonebook()
+
+        assert phonebook.delete("renatão") == "Nome nao existe"
 
     @pytest.mark.parametrize("caractere, expected_result", [
         ("!", None),

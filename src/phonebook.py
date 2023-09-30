@@ -16,18 +16,22 @@ class Phonebook:
 
         :param name: name of person in string
         :param number: number of person in string
-        :return: 'Nome invalido' or 'Numero invalido' or 'Numero adicionado'
+        :return: 'Nome invalido' or 'Numero invalido' or 'Numero adicionado' or 'Nome ja adicionado'
         """
         # MELHORIA: trocamos os Ifs para usar apenas um onde valida o campo nome.
         # nome inválido caso esteja vazio ou contenha caracteres especiais
+        # BUG: Corrigir retorno quando existiam mais de um If.
         if len(name) == CAMPO_VAZIO or self.valida_caracteres_especiais(name):
             return 'Nome invalido'
 
-        # MELHORIA: na validação de vazio para campo numero
+        # BUG: na validação de vazio para campo numero
         if len(number) == CAMPO_VAZIO:
             return 'Numero invalido'
 
-        # sugestão: validação de nome duplicado
+        # MELHORIA: validação de nome duplicado
+        if name in self.entries.keys():
+            return 'Nome ja adicionado'
+
         if name not in self.entries:
             self.entries[name] = number
 
@@ -37,15 +41,19 @@ class Phonebook:
         CAMPO_VAZIO = 0
         """
         :param name: name of person in string
-        :return: return number of person with name
+        :return: return number of person with name or 'Nome nao existe'
         """
         # MELHORIA: trocamos os Ifs para usar apenas um onde valida o campo nome.
         # nome inválido caso esteja vazio ou contenha caracteres especiais
+        # BUG: Corrigir retorno quando existiam mais de um If.
         if len(name) == CAMPO_VAZIO or self.valida_caracteres_especiais(name):
             return 'Nome invalido'
 
-        # sugestão: validação de nome caso não exista no phonebook
-        # MELHORIA: corrigimos o retorno da função para retornar o nome com o número
+        # MELHORIA: validação de nome caso não exista no phonebook
+        if name not in self.entries.keys():
+            return 'Nome nao existe'
+
+        # BUG: corrigimos o retorno da função para retornar o nome com o número
         return {name: self.entries[name]}
 
     def get_names(self):
@@ -74,16 +82,17 @@ class Phonebook:
         """
         Search all substring with search_name
         :param search_name: string with name for search
-        :return: return list with results of search
+        :return: return list with results of search or 'Nome nao existe'
         """
-        # sugestão: validar quando search_name for vazio
         result = []
 
         # sugestão 1: considerar código abaixo e remover a estrutura for
         # return {search_name: self.entries[search_name]}
         for name, number in self.entries.items():
-            if search_name in name:
-                # MELHORIA: corrigiu o objeto adicionado no array.
+            # BUG: corrigimos a validação do If para comparar com o name passado por parâmetro
+            # MELHORIA: equiparamos os dois valores para caixa baixa para ajudar na pesquisa
+            if search_name.lower() in name.lower():
+                # BUG: corrigimos o objeto adicionado no array.
                 result.append({name: self.entries[name]})
         return result
 
@@ -92,7 +101,7 @@ class Phonebook:
 
         :return: return phonebook in sorted order
         """
-        # MELHORIA: adicionado a função sorted para ordenar o phonebook
+        # BUG: corrigimos ordenando o phonebook com a função sorted
         return sorted(self.entries)
 
     def get_phonebook_reverse(self):
@@ -100,15 +109,23 @@ class Phonebook:
 
         :return: return phonebook in reverse sorted order
         """
-        # MELHORIA: utilizamos da função sorted para ordenação e da função reversed fazer a ordem inversa
+        # BUG: corrigimos ordenando o phonebook com a função sorted e ordenando de forma inversa com a função reversed
         return reversed(sorted(self.entries))
 
     def delete(self, name):
+        CAMPO_VAZIO = 0
         """
         Delete person with name
         :param name: String with name
-        :return: return 'Numero deletado'
+        :return: return 'Numero deletado' or 'Nome invalido' or 'Nome nao existe'
         """
-        # sugestão: validação de name vazio
+        # MELHORIA: validação de name vazio
+        if len(name) == CAMPO_VAZIO:
+            return 'Nome invalido'
+
+        # MELHORIA: validação de name não exista no phonebook
+        if name not in self.entries.keys():
+            return 'Nome nao existe'
+
         self.entries.pop(name)
         return 'Numero deletado'
