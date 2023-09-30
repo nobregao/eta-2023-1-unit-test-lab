@@ -192,6 +192,14 @@ class TestPhonebook:
 
         assert phonebook.delete("renatão") == "Nome nao existe"
 
+    def test_delete_nome_vazio(self):
+        phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "777777")
+        phonebook.add("raquel", "999999")
+
+        assert phonebook.delete("") == "Nome invalido"
+
     @pytest.mark.parametrize("caractere, expected_result", [
         ("!", None),
         ("@", None),
@@ -241,6 +249,9 @@ class TestPhonebook:
 
     def test_change_numbers_name_invalido(self):
         phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "777777")
+        phonebook.add("raquel", "999999")
 
         expected_result = phonebook.change_numbers("", "44444444")
 
@@ -248,10 +259,22 @@ class TestPhonebook:
 
     def test_change_numbers_name_nao_existe(self):
         phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "777777")
 
         expected_result = phonebook.change_numbers("raquel", "44444444")
 
         assert expected_result == "Nome nao existe"
+
+    def test_change_numbers_numero_vazio(self):
+        phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "777777")
+        phonebook.add("raquel", "999999")
+
+        expected_result = phonebook.change_numbers("raquel", "")
+
+        assert expected_result == "Numero invalido"
 
     def test_get_name_by_number(self):
         phonebook = Phonebook()

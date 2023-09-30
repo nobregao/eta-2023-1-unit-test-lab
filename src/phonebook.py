@@ -86,8 +86,6 @@ class Phonebook:
         """
         result = []
 
-        # sugestão 1: considerar código abaixo e remover a estrutura for
-        # return {search_name: self.entries[search_name]}
         for name, number in self.entries.items():
             # BUG: corrigimos a validação do If para comparar com o name passado por parâmetro
             # MELHORIA: equiparamos os dois valores para caixa baixa para ajudar na pesquisa
@@ -137,7 +135,7 @@ class Phonebook:
         Change number of person
         :param name: String with name of person
         :param number: String with number for change
-        :return: return 'Nome invalido' or 'Nome nao existe' or 'Numero invalido' or 'Numero alterado'
+        :return: return 'Numero alterado' or 'Nome invalido' or 'Nome nao existe' or 'Numero invalido'
         """
         if len(name) == CAMPO_VAZIO:
             return 'Nome invalido'
