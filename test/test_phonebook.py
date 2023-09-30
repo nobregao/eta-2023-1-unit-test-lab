@@ -18,13 +18,16 @@ class TestPhonebook:
         phonebook = Phonebook()
         assert phonebook.add("", "999999") == "Nome invalido"
 
-    def test_add_nome_caractere_especial(self):
+    @pytest.mark.parametrize("name, number, expected_result", [
+        ("renatão#", "999999", "Nome invalido"),
+        ("renatão@", "999999", "Nome invalido"),
+        ("!renatão", "999999", "Nome invalido"),
+        ("rena$tão", "999999", "Nome invalido"),
+        ("renatão%", "999999", "Nome invalido")
+    ])
+    def test_add_nome_caractere_especial(self, name, number, expected_result):
         phonebook = Phonebook()
-        assert phonebook.add("renatão#", "999999") == "Nome invalido"
-        assert phonebook.add("rena@tão", "999999") == "Nome invalido"
-        assert phonebook.add("!renatão", "999999") == "Nome invalido"
-        assert phonebook.add("rena$tão", "999999") == "Nome invalido"
-        assert phonebook.add("renatão%", "999999") == "Nome invalido"
+        assert phonebook.add(name, number) == expected_result
 
     def test_lookup_retornar_nome_e_numero(self):
         phonebook = Phonebook()
