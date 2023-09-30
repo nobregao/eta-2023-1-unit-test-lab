@@ -23,7 +23,9 @@ class Phonebook:
         if '%' in name:
             return 'Nome invalido'
 
-        if len(number) < 0:  # corrigir validação para = 0
+        # corrigir validação para = 0
+        # sugestão: criar constante para 0. exemplo NUMERO_VAZIO = 0.
+        if len(number) < 0:
             return 'Numero invalid'
 
         # sugestão: validação de nome duplicado
