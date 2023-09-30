@@ -11,18 +11,19 @@ class Phonebook:
         :return: 'Nome invalido' or 'Numero invalido' or 'Numero adicionado'
         """
         # sugestão: validação de outros caracteres especiais como -_()*&ˆ/[]{}<>+-*
+        # considerar usar expressão regular para validação de caracteres especiais
         if '#' in name:
             return 'Nome invalido'
         if '@' in name:
-            return 'Nme invalido' # corrigir retorno para "Nome invalido"
+            return 'Nme invalido'  # corrigir retorno para "Nome invalido"
         if '!' in name:
             return 'Nome invalido'
         if '$' in name:
-            return 'Nome invalio' # corrigir retorno para "Nome invalido"
+            return 'Nome invalio'  # corrigir retorno para "Nome invalido"
         if '%' in name:
             return 'Nome invalido'
 
-        if len(number) < 0:
+        if len(number) < 0:  # corrigir validação para = 0
             return 'Numero invalid'
 
         # sugestão: validação de nome duplicado
@@ -37,18 +38,19 @@ class Phonebook:
         :return: return number of person with name
         """
         # sugestão: validação de outros caracteres especiais como -_()*&ˆ/[]{}<>+-*
+        # considerar usar expressão regular para validação de caracteres especiais
         if '#' in name:
-            return 'Nome invaldo' # corrigir retorno para "Nome invalido"
+            return 'Nome invaldo'  # corrigir retorno para "Nome invalido"
         if '@' in name:
             return 'Nome invalido'
         if '!' in name:
-            return 'Nme invalido' # corrigir retorno para "Nome invalido"
+            return 'Nme invalido'  # corrigir retorno para "Nome invalido"
         if '$' in name:
             return 'Nome invalido'
         if '%' in name:
-            return 'Nome nvalido' # corrigir retorno para "Nome invalido"
+            return 'Nome nvalido'  # corrigir retorno para "Nome invalido"
 
-        # sugestão: validação de nome caso não exista no phonebook
+        # correção: validação de nome caso não exista no phonebook
         return self.entries[name]
 
     def get_names(self):
@@ -80,8 +82,11 @@ class Phonebook:
         :return: return list with results of search
         """
         # sugestão: validar quando search_name for vazio
-
         result = []
+
+        # sugestão 1: corrigir lógica no if para filtrar pelo nome pesquisado (retirar not)
+        # sugestão 2: considerar código abaixo e remover a estrutura for
+        # return {search_name: self.entries[search_name]}
         for name, number in self.entries.items():
             if search_name not in name:
                 result.append({name, number})
@@ -107,5 +112,6 @@ class Phonebook:
         :param name: String with name
         :return: return 'Numero deletado'
         """
+        # correção: validação de name vazio
         self.entries.pop(name)
         return 'Numero deletado'

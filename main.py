@@ -27,7 +27,7 @@ phonebook.add("raquel", "999999") # passou
 
 # print(phonebook.lookup("renatão")) # passou CORRIGIR retorno com numero
 
-print(phonebook.lookup("raquel")) # não passou, erro quando nome não existe
+# print(phonebook.lookup("raquel")) # não passou, erro quando nome não existe
 # print(phonebook.lookup("")) # não passou, erro quando nome está vazio
 
 # print(phonebook.lookup("renatão#")) # passou CORRIGIR retorno

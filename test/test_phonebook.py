@@ -30,6 +30,82 @@ class TestPhonebook:
 
         assert phonebook.lookup("sarita") == {"sarita": "999999"}
 
-    def test_lookup_retornar_nome_e_numero(self):
+    def test_lookup_nome_vazio(self):
         phonebook = Phonebook()
-        assert phonebook.lookup("sarita") == "Nome "
+
+        assert phonebook.lookup("") == {"sarita": "999999"}
+
+    def test_lookup_nome_caractere_especial(self):
+        phonebook = Phonebook()
+        assert phonebook.lookup("renatão#") == "Nome invalido"
+        assert phonebook.lookup("renatão@") == "Nome invalido"
+        assert phonebook.lookup("!renatão") == "Nome invalido"
+        assert phonebook.lookup("renatão%") == "Nome invalido"
+        assert phonebook.lookup("rena$tão") == "Nome invalido"
+
+    def test_get_names(self):
+        phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "777777")
+        phonebook.add("raquel", "999999")
+
+        assert 'sarita' in phonebook.get_names()
+        assert 'renatão' in phonebook.get_names()
+        assert 'raquel' in phonebook.get_names()
+
+    def test_get_numbers(self):
+        phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "777777")
+        phonebook.add("raquel", "999999")
+
+        assert '888888' in phonebook.get_numbers()
+        assert '777777' in phonebook.get_numbers()
+        assert '999999' in phonebook.get_numbers()
+
+    def test_phonebook_esta_vazio(self):
+        phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "777777")
+        phonebook.add("raquel", "999999")
+
+        phonebook.clear()
+        assert phonebook.clear() == "phonebook limpado"
+        assert len(phonebook.entries) == 0
+
+    def test_search(self):
+        phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "777777")
+        phonebook.add("raquel", "999999")
+
+        assert phonebook.search("sarita") == {"sarita": "888888"}
+
+    def test_get_phonebook_sorted(self):
+        phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "777777")
+        phonebook.add("raquel", "999999")
+
+        phonebook_sorted = phonebook.get_phonebook_sorted()
+
+        assert list(phonebook_sorted) == ["POLICIA", "raquel", "renatão", "sarita"]
+
+    def test_get_phonebook_reverse(self):
+        phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "777777")
+        phonebook.add("raquel", "999999")
+
+        phonebook_reverse_sorted = phonebook.get_phonebook_reverse()
+
+        assert list(phonebook_reverse_sorted) == ["sarita", "renatão", "raquel", "POLICIA"]
+
+    def test_delete(self):
+        phonebook = Phonebook()
+        phonebook.add("sarita", "888888")
+        phonebook.add("renatão", "777777")
+        phonebook.add("raquel", "999999")
+
+        assert phonebook.delete("renatão") == "Numero deletado"
+        assert "renatão" not in phonebook.entries
