@@ -2,10 +2,7 @@ from src.phonebook import Phonebook
 
 phonebook = Phonebook()
 
-# TODO: estudar código phonebook
-# TODO: escrever testes unitários para phonebook
-# TODO: fazer as melhorias de código
-
+# TODO: fazer as melhorias e correções de código
 
 phonebook.add("sarita", "888888") # passou
 phonebook.add("renatão", "123456789") # passou

@@ -38,7 +38,7 @@ class TestPhonebook:
     def test_lookup_nome_vazio(self):
         phonebook = Phonebook()
 
-        assert phonebook.lookup("") == {"sarita": "999999"}
+        assert phonebook.lookup("") == "Nome invalido"
 
     @pytest.mark.parametrize("name, expected_result", [
         ("renatão#", "Nome invalido"),
@@ -87,7 +87,7 @@ class TestPhonebook:
         phonebook.add("renatão", "777777")
         phonebook.add("raquel", "999999")
 
-        assert phonebook.search("sarita") == {"sarita": "888888"}
+        assert phonebook.search("sarita") == [{"sarita": "888888"}]
 
     def test_get_phonebook_sorted(self):
         phonebook = Phonebook()

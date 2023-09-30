@@ -4,6 +4,7 @@ class Phonebook:
         self.entries = {'POLICIA': '190'}
 
     def add(self, name, number):
+        CAMPO_VAZIO = 0
         """
 
         :param name: name of person in string
@@ -15,18 +16,19 @@ class Phonebook:
         if '#' in name:
             return 'Nome invalido'
         if '@' in name:
-            return 'Nme invalido'  # corrigir retorno para "Nome invalido"
+            return 'Nome invalido'
         if '!' in name:
             return 'Nome invalido'
         if '$' in name:
-            return 'Nome invalio'  # corrigir retorno para "Nome invalido"
+            return 'Nome invalido'
         if '%' in name:
             return 'Nome invalido'
 
-        # corrigir validação para = 0
-        # sugestão: criar constante para 0. exemplo NUMERO_VAZIO = 0.
-        if len(number) < 0:
-            return 'Numero invalid'
+        if len(name) == CAMPO_VAZIO:
+            return 'Nome invalido'
+
+        if len(number) == CAMPO_VAZIO:
+            return 'Numero invalido'
 
         # sugestão: validação de nome duplicado
         if name not in self.entries:
@@ -35,6 +37,7 @@ class Phonebook:
         return 'Numero adicionado'
 
     def lookup(self, name):
+        CAMPO_VAZIO = 0
         """
         :param name: name of person in string
         :return: return number of person with name
@@ -42,18 +45,21 @@ class Phonebook:
         # sugestão: validação de outros caracteres especiais como -_()*&ˆ/[]{}<>+-*
         # considerar usar expressão regular para validação de caracteres especiais
         if '#' in name:
-            return 'Nome invaldo'  # corrigir retorno para "Nome invalido"
+            return 'Nome invalido'
         if '@' in name:
             return 'Nome invalido'
         if '!' in name:
-            return 'Nme invalido'  # corrigir retorno para "Nome invalido"
+            return 'Nome invalido'
         if '$' in name:
             return 'Nome invalido'
         if '%' in name:
-            return 'Nome nvalido'  # corrigir retorno para "Nome invalido"
+            return 'Nome invalido'
 
-        # correção: validação de nome caso não exista no phonebook
-        return self.entries[name]
+        if len(name) == CAMPO_VAZIO:
+            return 'Nome invalido'
+
+        # sugestão: validação de nome caso não exista no phonebook
+        return {name: self.entries[name]}
 
     def get_names(self):
         """
@@ -86,12 +92,11 @@ class Phonebook:
         # sugestão: validar quando search_name for vazio
         result = []
 
-        # sugestão 1: corrigir lógica no if para filtrar pelo nome pesquisado (retirar not)
-        # sugestão 2: considerar código abaixo e remover a estrutura for
+        # sugestão 1: considerar código abaixo e remover a estrutura for
         # return {search_name: self.entries[search_name]}
         for name, number in self.entries.items():
-            if search_name not in name:
-                result.append({name, number})
+            if search_name in name:
+                result.append({name: self.entries[name]})
         return result
 
     def get_phonebook_sorted(self):
@@ -99,14 +104,14 @@ class Phonebook:
 
         :return: return phonebook in sorted order
         """
-        return self.entries
+        return sorted(self.entries)
 
     def get_phonebook_reverse(self):
         """
 
         :return: return phonebook in reverse sorted order
         """
-        return self.entries
+        return reversed(sorted(self.entries))
 
     def delete(self, name):
         """
@@ -114,6 +119,6 @@ class Phonebook:
         :param name: String with name
         :return: return 'Numero deletado'
         """
-        # correção: validação de name vazio
+        # sugestão: validação de name vazio
         self.entries.pop(name)
         return 'Numero deletado'
