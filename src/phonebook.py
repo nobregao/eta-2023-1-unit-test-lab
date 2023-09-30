@@ -1,7 +1,13 @@
+import re
+
 class Phonebook:
 
     def __init__(self):
         self.entries = {'POLICIA': '190'}
+
+    def valida_caracteres_especiais(self, valor):
+        regex = r"^[a-zA-Z0-9]+$"
+        return re.match(regex, valor) is None
 
     def add(self, name, number):
         CAMPO_VAZIO = 0
@@ -11,20 +17,7 @@ class Phonebook:
         :param number: number of person in string
         :return: 'Nome invalido' or 'Numero invalido' or 'Numero adicionado'
         """
-        # sugestão: validação de outros caracteres especiais como -_()*&ˆ/[]{}<>+-*
-        # considerar usar expressão regular para validação de caracteres especiais
-        if '#' in name:
-            return 'Nome invalido'
-        if '@' in name:
-            return 'Nome invalido'
-        if '!' in name:
-            return 'Nome invalido'
-        if '$' in name:
-            return 'Nome invalido'
-        if '%' in name:
-            return 'Nome invalido'
-
-        if len(name) == CAMPO_VAZIO:
+        if len(name) == CAMPO_VAZIO or self.valida_caracteres_especiais(name):
             return 'Nome invalido'
 
         if len(number) == CAMPO_VAZIO:
@@ -42,20 +35,7 @@ class Phonebook:
         :param name: name of person in string
         :return: return number of person with name
         """
-        # sugestão: validação de outros caracteres especiais como -_()*&ˆ/[]{}<>+-*
-        # considerar usar expressão regular para validação de caracteres especiais
-        if '#' in name:
-            return 'Nome invalido'
-        if '@' in name:
-            return 'Nome invalido'
-        if '!' in name:
-            return 'Nome invalido'
-        if '$' in name:
-            return 'Nome invalido'
-        if '%' in name:
-            return 'Nome invalido'
-
-        if len(name) == CAMPO_VAZIO:
+        if len(name) == CAMPO_VAZIO or self.valida_caracteres_especiais(name):
             return 'Nome invalido'
 
         # sugestão: validação de nome caso não exista no phonebook

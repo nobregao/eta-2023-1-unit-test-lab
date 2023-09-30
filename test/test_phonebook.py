@@ -19,11 +19,31 @@ class TestPhonebook:
         assert phonebook.add("", "999999") == "Nome invalido"
 
     @pytest.mark.parametrize("name, number, expected_result", [
-        ("renatão#", "999999", "Nome invalido"),
+        ("renatão!", "999999", "Nome invalido"),
         ("renatão@", "999999", "Nome invalido"),
-        ("!renatão", "999999", "Nome invalido"),
-        ("rena$tão", "999999", "Nome invalido"),
-        ("renatão%", "999999", "Nome invalido")
+        ("renatão#", "999999", "Nome invalido"),
+        ("renatão$", "999999", "Nome invalido"),
+        ("renatão%", "999999", "Nome invalido"),
+        ("renatão¨", "999999", "Nome invalido"),
+        ("renatão&", "999999", "Nome invalido"),
+        ("renatão*", "999999", "Nome invalido"),
+        ("renatão(", "999999", "Nome invalido"),
+        ("renatão)", "999999", "Nome invalido"),
+        ("renatão_", "999999", "Nome invalido"),
+        ("renatão+", "999999", "Nome invalido"),
+        ("renatão{", "999999", "Nome invalido"),
+        ("renatão}", "999999", "Nome invalido"),
+        ("renatão[", "999999", "Nome invalido"),
+        ("renatão]", "999999", "Nome invalido"),
+        ("renatão|", "999999", "Nome invalido"),
+        ("renatão\\", "999999", "Nome invalido"),
+        ("renatão:", "999999", "Nome invalido"),
+        ("renatão;", "999999", "Nome invalido"),
+        ("renatão\"", "999999", "Nome invalido"),
+        ("renatão<", "999999", "Nome invalido"),
+        ("renatão>", "999999", "Nome invalido"),
+        ("renatão?", "999999", "Nome invalido"),
+        ("renatão/", "999999", "Nome invalido")
     ])
     def test_add_nome_caractere_especial(self, name, number, expected_result):
         phonebook = Phonebook()
@@ -41,11 +61,31 @@ class TestPhonebook:
         assert phonebook.lookup("") == "Nome invalido"
 
     @pytest.mark.parametrize("name, expected_result", [
-        ("renatão#", "Nome invalido"),
+        ("renatão!", "Nome invalido"),
         ("renatão@", "Nome invalido"),
-        ("!renatão", "Nome invalido"),
-        ("rena$tão", "Nome invalido"),
-        ("renatão%", "Nome invalido")
+        ("renatão#", "Nome invalido"),
+        ("renatão$", "Nome invalido"),
+        ("renatão%", "Nome invalido"),
+        ("renatão¨", "Nome invalido"),
+        ("renatão&", "Nome invalido"),
+        ("renatão*", "Nome invalido"),
+        ("renatão(", "Nome invalido"),
+        ("renatão)", "Nome invalido"),
+        ("renatão_", "Nome invalido"),
+        ("renatão+", "Nome invalido"),
+        ("renatão{", "Nome invalido"),
+        ("renatão}", "Nome invalido"),
+        ("renatão[", "Nome invalido"),
+        ("renatão]", "Nome invalido"),
+        ("renatão|", "Nome invalido"),
+        ("renatão\\", "Nome invalido"),
+        ("renatão:", "Nome invalido"),
+        ("renatão;", "Nome invalido"),
+        ("renatão\"", "Nome invalido"),
+        ("renatão<", "Nome invalido"),
+        ("renatão>", "Nome invalido"),
+        ("renatão?", "Nome invalido"),
+        ("renatão/", "Nome invalido")
     ])
     def test_lookup_nome_caractere_especial(self, name, expected_result):
         phonebook = Phonebook()
@@ -117,3 +157,39 @@ class TestPhonebook:
 
         assert phonebook.delete("renatão") == "Numero deletado"
         assert "renatão" not in phonebook.entries
+
+    @pytest.mark.parametrize("caractere, expected_result", [
+        ("!", None),
+        ("@", None),
+        ("#", None),
+        ("$", None),
+        ("%", None),
+        ("&", None),
+        ("*", None),
+        ("(", None),
+        (")", None),
+        ("_", None),
+        ("+", None),
+        ("-", None),
+        ("=", None),
+        ("{", None),
+        ("}", None),
+        ("[", None),
+        ("]", None),
+        ("|", None),
+        ("\\", None),
+        (":", None),
+        (";", None),
+        ("\"", None),
+        ("'", None),
+        ("<", None),
+        (">", None),
+        ("?", None),
+        ("/", None),
+        ("^", None),
+        ("~", None),
+        ("`", None)
+    ])
+    def test_valida_caracteres_especiais(self, caractere, expected_result):
+        phonebook = Phonebook()
+        assert phonebook.valida_caracteres_especiais(caractere) == True
